@@ -3,16 +3,28 @@
 {% extends "base.html" %}
 {% block content %}
 <!--index.html-->
-{% if object_list %}
+{% if all_to_do_list %}
 <h3>All my lists</h3>
 {% endif %}
 <ul>
-    {% for todolist in object_list %}
+    {% for todolist in all_to_do_list %}
     <li>
         <div
             role="button"
-            onclick="location.href='{% url "list" todolist.id %}'">
+            onclick="location.href='{% url "toDoListDetail" todolist.id %}'"
+        >
             {{ todolist.to_do_list_title }}
+        </div>
+        <div>
+            <input
+                value="edit"
+                type="button"
+                onclick="location.href='{% url "updateToDoList" todolist.id %}'"
+            />
+            <form method="post" action="{% url "deleteToDoList" todolist.id %}">
+                {% csrf_token %}
+                <input value="delete" type="submit">
+            </form>
         </div>
     </li>
     {% empty %}
@@ -23,6 +35,7 @@
     <input
         value="Add a new list"
         type="button"
-        onclick="location.href='{% url "list-add" %}'"/>
+        onclick="location.href='{% url "addToDoList" %}'"
+    />
 </p>
 {% endblock %}

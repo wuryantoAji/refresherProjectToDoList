@@ -3,12 +3,19 @@
 
 {% block content %}
 
-<h3>{{ title }}</h3>
+<h3>Add To Do List</h3>
+    {% if response %}
+            <ul>
+                <li><a>{{ response }}</a></li>
+            </ul>
+    {% endif %}
 <div>
     <div>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            To Do List Title<br>
+            <input name="to_do_list_title">
+            <br>
             <input
                 value="Save"
                 type="submit">

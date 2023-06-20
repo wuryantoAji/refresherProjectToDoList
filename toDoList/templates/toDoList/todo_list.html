@@ -9,13 +9,13 @@
             <h5>{{ todo_list.to_do_list_title | upper }}</h5>
         </div>
         <ul>
-            {% for todo in object_list %}
+            {% for todo in toDoItem %}
             <li>
                 <div>
                     <div
                         role="button"
-                        onclick="location.href='' +
-                         '{% url "item-update" todo_list.id todo.id %}'">
+{#                        onclick="location.href='' + '{% url "item-update" todo_list.id todo.id %}'"#}
+                    >
                         {{ todo.to_do_item_title }}
                         (Due {{ todo.to_do_due_date | date:"l, F j" }})
                     </div>
@@ -29,7 +29,7 @@
             <input
                 value="Add a new item"
                 type="button"
-                onclick="location.href='{% url "item-add" todo_list.id %}'"
+                onclick="location.href='{% url "addToDoListItem" todo_list.id %}'"
             />
         </p>
     </div>

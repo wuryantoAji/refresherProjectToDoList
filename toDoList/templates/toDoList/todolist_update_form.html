@@ -1,0 +1,30 @@
+<!-- todo_list/todo_app/templates/todo_app/todolist_update_form.html -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Update To Do List</h3>
+    {% if response %}
+            <ul>
+                <li><a>{{ response }}</a></li>
+            </ul>
+    {% endif %}
+<div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            To Do List Title<br>
+            <input name="to_do_list_title" value="{{ toDoList.to_do_list_title }}">
+            <br>
+            <input
+                value="Save"
+                type="submit">
+            <input
+                value="Cancel"
+                type="button"
+                onclick="location.href='{% url "index" %}';">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
