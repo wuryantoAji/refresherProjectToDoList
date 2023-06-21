@@ -4,26 +4,62 @@
 {% block content %}
 <div>
     <div>
+        <input
+            value="Back to All To Do List"
+            type="button"
+            onclick="location.href='{% url "index" %}'"
+        />
         <div>
-            <h3>Edit list:</h3>
             <h5>{{ todo_list.to_do_list_title | upper }}</h5>
         </div>
         <ul>
-            {% for todo in toDoItem %}
-            <li>
-                <div>
-                    <div
-                        role="button"
-{#                        onclick="location.href='' + '{% url "item-update" todo_list.id todo.id %}'"#}
-                    >
-                        {{ todo.to_do_item_title }}
-                        (Due {{ todo.to_do_due_date | date:"l, F j" }})
-                    </div>
-                </div>
-            </li>
-            {% empty %}
-            <p>There are no to-do items in this list.</p>
-            {% endfor %}
+          <table>
+              <tr>
+                <th>To Do Item Name</th>
+                <th>To Do Item Due Date</th>
+                <th>To Do Item Description</th>
+                <th>Edit To Do Item</th>
+                <th>Delete To Do Item</th>
+              </tr>
+                {% for todo in toDoItem %}
+                    <tr>
+                        <td>
+                            {{ todo.to_do_item_title }}
+                        </td>
+                        <td>
+                            {{ todo.to_do_due_date | date:"l, F j" }}
+                        </td>
+                        <td>
+                            {% if todo.to_do_description %}
+                                <ul>
+                                    <a>{{ todo.to_do_description }}</a>
+                                </ul>
+                            {% else %}
+                                <ul>
+                                    <a>-</a>
+                                </ul>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <input
+                                value="edit"
+                                type="button"
+                                onclick="location.href='{% url "updateToDoListItem" toDoListId=todo_list.id toDoItemId=todo.id %}'"
+                            />
+                        </td>
+                        <td>
+                            <form method="post"
+                                  action="{% url "deleteToDoListItem" toDoListId=todo_list.id toDoItemId=todo.id %}"
+                            >
+                                {% csrf_token %}
+                                <input value="delete" type="submit">
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                <p>There are no to-do items in this list.</p>
+                {% endfor %}
+          </table>
         </ul>
         <p>
             <input

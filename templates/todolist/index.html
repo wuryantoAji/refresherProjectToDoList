@@ -7,29 +7,43 @@
 <h3>All my lists</h3>
 {% endif %}
 <ul>
+    <table>
+          <tr>
+            <th>To Do List Grouping Name</th>
+             <th>Detail Action</th>
+            <th>Edit Action</th>
+            <th>Delete Action</th>
+          </tr>
     {% for todolist in all_to_do_list %}
-    <li>
-        <div
-            role="button"
-            onclick="location.href='{% url "toDoListDetail" todolist.id %}'"
-        >
-            {{ todolist.to_do_list_title }}
-        </div>
-        <div>
-            <input
-                value="edit"
-                type="button"
-                onclick="location.href='{% url "updateToDoList" todolist.id %}'"
-            />
-            <form method="post" action="{% url "deleteToDoList" todolist.id %}">
-                {% csrf_token %}
-                <input value="delete" type="submit">
-            </form>
-        </div>
-    </li>
-    {% empty %}
-    <h4>You have no lists!</h4>
-    {% endfor %}
+          <tr>
+            <td>
+                {{ todolist.to_do_list_title }}
+            </td>
+            <td>
+                <input
+                    value="To Do List Detail"
+                    type="button"
+                    onclick="location.href='{% url "toDoListDetail" todolist.id %}'"
+                />
+            </td>
+            <td>
+                <input
+                    value="Edit To Do List"
+                    type="button"
+                    onclick="location.href='{% url "updateToDoList" todolist.id %}'"
+                />
+            </td>
+            <td>
+                <form method="post" action="{% url "deleteToDoList" todolist.id %}">
+                    {% csrf_token %}
+                    <input value="delete" type="submit">
+                </form>
+            </td>
+          </tr>
+        {% empty %}
+        <h4>You have no lists!</h4>
+        {% endfor %}
+    </table>
 </ul>
 <p>
     <input
