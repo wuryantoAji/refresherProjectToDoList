@@ -73,9 +73,10 @@ def addToDoListItem(request, toDoListId):
             responseList.append("please give title to the item")
         if toDoListItemDueDate == "":
             responseList.append("please give due date to the item")
-        datetime_object = datetime.datetime.strptime(toDoListItemDueDate, '%Y-%m-%d').date()
-        if datetime_object < datetime.datetime.now().date():
-            responseList.append("due date must be after today")
+        else:
+            datetime_object = datetime.datetime.strptime(toDoListItemDueDate, '%Y-%m-%d').date()
+            if datetime_object < datetime.datetime.now().date():
+                responseList.append("due date must be after today")
         if len(responseList) > 0:
             context["responses"] = responseList
             return render(request, 'toDoItem/todolistitem_form.html', context)

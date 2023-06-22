@@ -19,7 +19,7 @@ class ToDoItem(models.Model):
     to_do_list_id = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
-        return f"{self.title}: due {self.due_date}"
+        return f"{self.to_do_item_title}: due {self.to_do_due_date}"
 
     class Meta:
         ordering = ["to_do_due_date"]
